@@ -69,17 +69,18 @@ local vsnip_map = function()
 end
 
 local neovide_config = function()
-    vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h12]]
-    vim.g.neovide_refresh_rate = 60
-    vim.g.neovide_cursor_vfx_mode = "railgun"
-    vim.g.neovide_no_idle = true
-    vim.g.neovide_cursor_animation_length = 0.03
-    vim.g.neovide_cursor_trail_length = 0.05
-    vim.g.neovide_cursor_antialiasing = true
-    vim.g.neovide_cursor_vfx_opacity = 200.0
-    vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
-    vim.g.neovide_cursor_vfx_particle_speed = 20.0
-    vim.g.neovide_cursor_vfx_particle_density = 5.0
+    -- vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h18]]
+    -- vim.cmd [[set guifont=JetBrainsMonoNL-Thin]]
+    -- vim.g.neovide_refresh_rate = 60
+    -- vim.g.neovide_cursor_vfx_mode = "railgun"
+    -- vim.g.neovide_no_idle = true
+    -- vim.g.neovide_cursor_animation_length = 0.03
+    -- vim.g.neovide_cursor_trail_length = 0.05
+    -- vim.g.neovide_cursor_antialiasing = true
+    -- vim.g.neovide_cursor_vfx_opacity = 200.0
+    -- vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
+    -- vim.g.neovide_cursor_vfx_particle_speed = 20.0
+    -- vim.g.neovide_cursor_vfx_particle_density = 5.0
 end
 
 local dashboard_config = function()
@@ -147,17 +148,20 @@ local load_core = function()
     pack.ensure_plugins()
     -- ultisnips_map()
     -- vsnip_map()
-    -- neovide_config()
+    neovide_config()
     dashboard_config()
 
     require('core.options')
-    require('core.mapping')
+    -- require('core.mapping')
     require('keymap')
-    require('core.event')
-    pack.magic_compile()
+    -- require('core.event')
+    pack.compile_to_lua_file()
     pack.load_compile()
 
-    vim.cmd [[colorscheme edge]]
+    -- vim.cmd [[colorscheme edge]]
+    -- vim.cmd [[colorscheme darkplus]]
+    -- vim.cmd [[colorscheme desert]]
+    vim.cmd [[colorscheme one-nvim]]
 end
 
 load_core()

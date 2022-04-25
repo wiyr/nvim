@@ -1,6 +1,7 @@
 local completion = {}
 local conf = require('modules.completion.config')
 
+-- A collection of common configurations for Neovim's built-in language server client.
 completion['neovim/nvim-lspconfig'] = {
     opt = true,
     event = 'BufRead',
@@ -50,4 +51,5 @@ completion['windwp/nvim-autopairs'] = {
     config = conf.autopairs
 }
 
+completion = {}
 return completion

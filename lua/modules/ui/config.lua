@@ -1,5 +1,9 @@
 local config = {}
 
+function config.galaxyline()
+    require('modules.ui.eviline')
+end
+
 function config.gitsigns()
     if not packer_plugins['plenary.nvim'].loaded then
         vim.cmd [[packadd plenary.nvim]]
@@ -39,19 +43,20 @@ function config.gitsigns()
             ['o ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>',
             ['x ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>'
         },
-        watch_index = {interval = 1000, follow_files = true},
-        current_line_blame = true,
-        current_line_blame_delay = 1000,
-        current_line_blame_position = 'eol',
+        -- watch_index = {interval = 1000, follow_files = true},
+        -- current_line_blame = true,
+        -- current_line_blame_delay = 1000,
+        -- current_line_blame_position = 'eol',
         sign_priority = 6,
         update_debounce = 100,
         status_formatter = nil, -- Use default
         word_diff = false,
-        use_internal_diff = true -- If luajit is present
+        -- use_internal_diff = true -- If luajit is present
     }
 end
 
 function config.indent_blankline()
+    -- vim.opt.termguicolors = true
     -- vim.cmd [[highlight IndentTwo guifg=#D08770 guibg=NONE gui=nocombine]]
     -- vim.cmd [[highlight IndentThree guifg=#EBCB8B guibg=NONE gui=nocombine]]
     -- vim.cmd [[highlight IndentFour guifg=#A3BE8C guibg=NONE gui=nocombine]]
@@ -59,29 +64,35 @@ function config.indent_blankline()
     -- vim.cmd [[highlight IndentSix guifg=#88C0D0 guibg=NONE gui=nocombine]]
     -- vim.cmd [[highlight IndentSeven guifg=#B48EAD guibg=NONE gui=nocombine]]
     -- vim.g.indent_blankline_char_highlight_list = {
-    --     "IndentTwo", "IndentThree", "IndentFour", "IndentFive", "IndentSix",
-    --     "IndentSeven"
+        -- "IndentTwo", "IndentThree", "IndentFour", "IndentFive", "IndentSix",
+        -- "IndentSeven"
     -- }
+    -- vim.opt.list = true
+    -- vim.opt.listchars:append("space:⋅")
+    -- vim.opt.listchars:append("eol:↴")
     require("indent_blankline").setup {
-        char = "│",
-        show_first_indent_level = true,
+        -- char = "│",
+        -- show_current_context = true,
+        -- show_current_context_start = true,
+        -- space_char_blankline = " ",
+        -- show_first_indent_level = true,
         filetype_exclude = {
             "startify", "dashboard", "dotooagenda", "log", "fugitive",
             "gitcommit", "packer", "vimwiki", "markdown", "json", "txt",
             "vista", "help", "todoist", "NvimTree", "peekaboo", "git",
             "TelescopePrompt", "undotree", "flutterToolsOutline", "" -- for all buffers without a file type
         },
-        buftype_exclude = {"terminal", "nofile"},
-        show_trailing_blankline_indent = false,
-        show_current_context = true,
-        context_patterns = {
-            "class", "function", "method", "block", "list_literal", "selector",
-            "^if", "^table", "if_statement", "while", "for", "type", "var",
-            "import"
-        }
+        -- buftype_exclude = {"terminal", "nofile"},
+        -- show_trailing_blankline_indent = false,
+        -- show_current_context = true,
+        -- context_patterns = {
+            -- "class", "function", "method", "block", "list_literal", "selector",
+            -- "^if", "^table", "if_statement", "while", "for", "type", "var",
+            -- "import"
+        -- }
     }
     -- because lazy load indent-blankline so need readd this autocmd
-    vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
+    -- vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
 end
 
 function config.zen_mode() require('zen-mode').setup {} end

@@ -2,6 +2,7 @@ local config = {}
 
 function config.telescope()
     local home = os.getenv("HOME")
+    -- vim.cmd [[ autocmd ColorScheme * lua require'nvim-web-devicons'.setup() ]]
 
     if not packer_plugins['plenary.nvim'].loaded then
         vim.cmd [[packadd plenary.nvim]]
@@ -31,26 +32,24 @@ function config.telescope()
         defaults = {
             prompt_prefix = '🔭 ',
             selection_caret = " ",
-            layout_config = {
-                horizontal = {prompt_position = "bottom", results_width = 0.6},
-                vertical = {mirror = false}
-            },
-            file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-            grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep
-                .new,
-            qflist_previewer = require'telescope.previewers'.vim_buffer_qflist
-                .new,
-            file_sorter = require("telescope.sorters").get_fuzzy_file,
-            file_ignore_patterns = {},
-            generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-            path_display = {"absolute"},
-            winblend = 0,
-            border = {},
-            borderchars = {
-                "─", "│", "─", "│", "╭", "╮", "╯", "╰"
-            },
-            color_devicons = true,
-            use_less = true,
+            -- layout_config = {
+                -- horizontal = {prompt_position = "bottom", results_width = 0.6},
+                -- vertical = {mirror = false}
+            -- },
+            -- file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+            -- grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+            -- qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+            -- file_sorter = require("telescope.sorters").get_fuzzy_file,
+            -- file_ignore_patterns = {},
+            -- generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+            -- path_display = {"absolute"},
+            -- winblend = 0,
+            -- border = {},
+            -- borderchars = {
+                -- "─", "│", "─", "│", "╭", "╮", "╯", "╰"
+            -- },
+            -- color_devicons = true,
+            -- use_less = true,
             set_env = {["COLORTERM"] = "truecolor"}
         },
         extensions = {
