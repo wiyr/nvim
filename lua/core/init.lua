@@ -152,7 +152,7 @@ local load_core = function()
     dashboard_config()
 
     require('core.options')
-    -- require('core.mapping')
+    require('core.mapping')
     require('keymap')
     -- require('core.event')
     pack.compile_to_lua_file()

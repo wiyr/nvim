@@ -2,110 +2,114 @@ local config = {}
 
 function config.nvim_lsp() require('modules.completion.lspconfig') end
 
-function config.lspkind()
-    require('lspkind').init({
-        -- enables text annotations
-        with_text = true,
-        -- can be either 'default' or
-        -- 'codicons' for codicon preset (requires vscode-codicons font installed)
-        -- default: 'default'
-        preset = 'codicons',
-        -- override preset symbols
-        symbol_map = {
-            Text = '',
-            Method = 'ƒ',
-            Function = '',
-            Constructor = '',
-            Variable = '',
-            Class = '',
-            Interface = 'ﰮ',
-            Module = '',
-            Property = '',
-            Unit = '',
-            Value = '',
-            Enum = '',
-            Keyword = '',
-            Snippet = '﬌',
-            Color = '',
-            File = '',
-            Folder = '',
-            EnumMember = '',
-            Constant = '',
-            Struct = ''
-        }
-    })
-end
-
-function config.saga()
-    vim.api.nvim_command("autocmd CursorHold * Lspsaga show_line_diagnostics")
-end
-
-function config.compe()
-    if not packer_plugins['vim-vsnip'].loaded then
-        vim.cmd [[packadd vim-vsnip]]
-    end
-
-    if not packer_plugins['ultisnips'].loaded then
-        vim.cmd [[packadd ultisnips]]
-    end
-
-    require('compe').setup {
-        enabled = true,
-        autocomplete = true,
-        debug = false,
-        min_length = 1,
-        preselect = 'enable',
-        throttle_time = 80,
-        source_timeout = 200,
-        resolve_timeout = 800,
-        incomplete_delay = 400,
-        max_abbr_width = 100,
-        max_kind_width = 100,
-        max_menu_width = 100,
-        documentation = true,
-
-        source = {
-            path = true,
-            buffer = true,
-            calc = true,
-            spell = true,
-            tags = true,
-
-            orgmode = true,
-            snippetSupport = true,
-            nvim_lsp = true,
-            nvim_lua = true,
-            treesitter = true,
-            vsnip = true,
-            ultisnips = true
-            -- tabnine = {
-            --     max_line = 1000,
-            --     max_num_results = 6,
-            --     priority = 5000,
-            --     show_prediction_strength = true,
-            --     sort = false,
-            --     ignore_pattern = '[(]'
-            -- }
-        }
+function gen_lspkind_icons()
+    return {
+        Text = "",
+        Method = "",
+        Function = "",
+        Constructor = "",
+        Field = "",
+        Variable = "",
+        Class = "ﴯ",
+        Interface = "",
+        Module = "",
+        Property = "ﰠ",
+        Unit = "",
+        Value = "",
+        Enum = "",
+        Keyword = "",
+        Snippet = "",
+        Color = "",
+        File = "",
+        Reference = "",
+        Folder = "",
+        EnumMember = "",
+        Constant = "",
+        Struct = "",
+        Event = "",
+        Operator = "",
+        TypeParameter = "",
     }
 end
 
-function config.autopairs()
-    require('nvim-autopairs').setup({
-        disable_filetype = {"TelescopePrompt"},
-        ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]], "%s+", ""),
-        enable_moveright = true,
-        -- add bracket pairs after quote
-        enable_afterquote = true,
-        -- check bracket in same line
-        enable_check_bracket_line = true,
-        check_ts = true
-    })
 
-    require("nvim-autopairs.completion.compe").setup({
-        map_cr = true,
-        map_complete = true
+function config.cmp()
+	local cmp = require("cmp")
+    cmp.setup({
+        mapping = cmp.mapping.preset.insert({
+            ["<Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                elseif has_words_before() then
+                    cmp.complete()
+                else
+                    fallback()
+                end
+            end, { "i", "s" }),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                else
+                    fallback()
+                end
+            end, { "i", "s" }),
+        }),
+        formatting = {
+			format = function(entry, vim_item)
+				local lspkind_icons = gen_lspkind_icons()
+				-- load lspkind icons
+				vim_item.kind = string.format("%s %s", lspkind_icons[vim_item.kind], vim_item.kind)
+				vim_item.menu = ({
+					buffer = "[BUF]",
+					nvim_lsp = "[LSP]",
+					path = "[PATH]",
+                    cmp_tabnine = "[TN]",
+				})[entry.source.name]
+
+				return vim_item
+			end,
+		},
+        sources = cmp.config.sources({
+            { name = 'nvim_lsp' },
+            { name = 'buffer' },
+            { name = 'path' },
+            { name = 'cmp_tabnine' },
+        })
     })
+	-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+	cmp.setup.cmdline('/', {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = 'buffer' }
+		}
+	})
+	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+	cmp.setup.cmdline(':', {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = 'path' }
+		}, {
+			{ name = 'cmdline' }
+		})
+	})
 end
+
+-- function config.autopairs()
+    -- require('nvim-autopairs').setup({
+        -- disable_filetype = {"TelescopePrompt"},
+        -- ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]], "%s+", ""),
+        -- enable_moveright = true,
+        -- -- add bracket pairs after quote
+        -- enable_afterquote = true,
+        -- -- check bracket in same line
+        -- enable_check_bracket_line = true,
+        -- check_ts = true
+    -- })
+
+    -- require("nvim-autopairs.completion.compe").setup({
+        -- map_cr = true,
+        -- map_complete = true
+    -- })
+-- end
 
 return config

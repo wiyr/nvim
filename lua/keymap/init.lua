@@ -35,9 +35,9 @@ local plug_map = {
     ["n|g]"] = map_cr('Lspsaga diagnostic_jump_prev'):with_noremap()
         :with_silent(),
     ["n|K"] = map_cr("Lspsaga hover_doc"):with_noremap():with_silent(),
-    ["n|<leader>ca"] = map_cr("Lspsaga code_action"):with_noremap()
+    ["n|ca"] = map_cr("Lspsaga code_action"):with_noremap()
         :with_silent(),
-    ["v|<leader>ca"] = map_cu("Lspsaga range_code_action"):with_noremap()
+    ["v|ca"] = map_cu("Lspsaga range_code_action"):with_noremap()
         :with_silent(),
     ["n|gd"] = map_cmd('<cmd>lua vim.lsp.buf.definition()<CR>'):with_noremap()
         :with_silent(),
@@ -45,12 +45,12 @@ local plug_map = {
         :with_silent(),
     ["n|gs"] = map_cr('Lspsaga signature_help'):with_noremap():with_silent(),
     ["n|gr"] = map_cr('Lspsaga rename'):with_noremap():with_silent(),
-    ["n|gh"] = map_cr('Lspsaga lsp_finder'):with_noremap():with_silent(),
-    ["n|<A-d>"] = map_cu('Lspsaga open_floaterm'):with_noremap():with_silent(),
-    ["t|<A-d>"] = map_cu([[<C-\><C-n>:Lspsaga close_floaterm<CR>]]):with_noremap()
+    ["n|gf"] = map_cr('Lspsaga lsp_finder'):with_noremap():with_silent(),
+    ["n|go"] = map_cu('Lspsaga open_floaterm'):with_noremap():with_silent(),
+    ["t|gc"] = map_cu([[<C-\><C-n>:Lspsaga close_floaterm<CR>]]):with_noremap()
         :with_silent(),
-    ["n|<Leader>g"] = map_cu("Lspsaga open_floaterm gitui"):with_noremap()
-        :with_silent(),
+    -- ["n|<Leader>g"] = map_cu("Lspsaga open_floaterm gitui"):with_noremap()
+        -- :with_silent(),
     -- Plugin Telescope
     ["n|<Leader>fp"] = map_cu('Telescope project'):with_noremap():with_silent(),
     ["n|<Leader>fe"] = map_cu('DashboardFindHistory'):with_noremap()
