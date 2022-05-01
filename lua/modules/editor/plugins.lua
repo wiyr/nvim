@@ -7,10 +7,6 @@ editor['itchyny/vim-cursorword'] = {
     event = {'BufReadPre', 'BufNewFile'},
     -- config = conf.vim_cursorwod
 }
--- editor["terrortylor/nvim-comment"] = {
-	-- opt = false,
-    -- config = conf.nvim_comment,
--- }
 editor['tpope/vim-commentary'] = {
     opt = false,
     config = conf.vim_commentary,
@@ -100,6 +96,10 @@ editor['justinmk/vim-dirvish'] = {
 }
 
 editor['vim-scripts/a.vim'] = {
+    opt = false
+}
+
+editor['mg979/vim-visual-multi'] = {
     opt = false
 }
 return editor
