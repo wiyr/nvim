@@ -50,7 +50,11 @@ completion['hrsh7th/nvim-cmp'] = {
     }
 }
 -- Show function signature when you type
-completion['ray-x/lsp_signature.nvim'] = {opt = true, after = 'nvim-lspconfig'}
+completion['ray-x/lsp_signature.nvim'] = {
+    opt = true,
+    after = 'nvim-lspconfig',
+    config = conf.lsp_signature
+}
 completion['tzachar/cmp-tabnine'] = {
     opt = true,
     after = 'nvim-cmp',

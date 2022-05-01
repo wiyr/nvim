@@ -39,7 +39,7 @@ local plug_map = {
         :with_silent(),
     ["v|ca"] = map_cu("Lspsaga range_code_action"):with_noremap()
         :with_silent(),
-    ["n|gd"] = map_cmd('<cmd>lua vim.lsp.buf.definition()<CR>'):with_noremap()
+    ["n|<c-]>"] = map_cmd('<cmd>lua vim.lsp.buf.definition()<CR>'):with_noremap()
         :with_silent(),
     ["n|gD"] = map_cmd("<cmd>lua vim.lsp.buf.implementation()<CR>"):with_noremap()
         :with_silent(),
@@ -67,12 +67,12 @@ local plug_map = {
     -- ["n|j"] = map_cmd("v:lua.enhance_jk_move('j')"):with_silent():with_expr(),
     -- ["n|k"] = map_cmd("v:lua.enhance_jk_move('k')"):with_silent():with_expr(),
     -- Plugin EasyAlign
-    ["n|ga"] = map_cmd("v:lua.enhance_align('nga')"):with_expr(),
-    ["x|ga"] = map_cmd("v:lua.enhance_align('xga')"):with_expr(),
+    -- ["n|ga"] = map_cmd("v:lua.enhance_align('nga')"):with_expr(),
+    -- ["x|ga"] = map_cmd("v:lua.enhance_align('xga')"):with_expr(),
     -- Plugin ZenMode
-    ["n|<leader><leader>z"] = map_cr('ZenMode'):with_noremap():with_silent(),
+    ["n|<leader>z"] = map_cr('ZenMode'):with_noremap():with_silent(),
     -- Plugin SymbolOutline
-    ["n|<A-t>"] = map_cr('SymbolsOutline'):with_noremap():with_silent(),
+    ["n|<leader>m"] = map_cr('SymbolsOutline'):with_noremap():with_silent(),
     -- Plugin MarkdownPreview
     ["n|<F12>"] = map_cr('MarkdownPreviewToggle'):with_noremap():with_silent(),
     -- Plugin auto_session
@@ -112,7 +112,18 @@ local plug_map = {
     ["n|<leader>do"] = map_cr("lua require('dap').step_out()"):with_noremap()
         :with_silent(),
     ["n|<leader>dl"] = map_cr("lua require('dap').repl.open()"):with_noremap()
-        :with_silent()
+        :with_silent(),
+    -- vim commentary: <ctrl-/>
+    ["n|<c-_>"] = map_cr("Commentary"):with_noremap()
+        :with_silent(),
+    ["v|<c-_>"] = map_cr("Commentary"):with_noremap()
+        :with_silent(),
+    ["x|<c-_>"] = map_cr("Commentary"):with_noremap()
+        :with_silent(),
+	-- Plugin nvim-tree
+	["n|<leader>n"] = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
+	["n|<leader>f"] = map_cr("NvimTreeFindFile"):with_noremap():with_silent(),
+	["n|<leader>r"] = map_cr("NvimTreeRefresh"):with_noremap():with_silent(),
 };
 
 bind.nvim_load_mapping(plug_map)

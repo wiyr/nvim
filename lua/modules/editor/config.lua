@@ -64,50 +64,34 @@ function config.vim_cursorwod()
 end
 
 function config.nvim_treesitter()
-    vim.api.nvim_command('set foldmethod=expr')
-    vim.api.nvim_command('set foldexpr=nvim_treesitter#foldexpr()')
-
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = 'maintained',
-        highlight = {enable = true, disable = {'vim'}},
-        textobjects = {
-            select = {
-                enable = true,
-                keymaps = {
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner"
-                }
-            },
-            move = {
-                enable = true,
-                set_jumps = true, -- whether to set jumps in the jumplist
-                goto_next_start = {
-                    ["]["] = "@function.outer",
-                    ["]m"] = "@class.outer"
-                },
-                goto_next_end = {
-                    ["]]"] = "@function.outer",
-                    ["]M"] = "@class.outer"
-                },
-                goto_previous_start = {
-                    ["[["] = "@function.outer",
-                    ["[m"] = "@class.outer"
-                },
-                goto_previous_end = {
-                    ["[]"] = "@function.outer",
-                    ["[M"] = "@class.outer"
-                }
-            }
-        },
-        rainbow = {
+        -- A list of parser names, or "all"
+        ensure_installed = { "c", "lua", "python", "bash", "cpp" , "go",
+                            "json"},
+        -- Install parsers synchronously (only applied to `ensure_installed`)
+        sync_install = false,
+        -- List of parsers to ignore installing (for "all")
+        -- ignore_install = { "javascript" },
+        highlight = {
+            -- `false` will disable the whole extension
             enable = true,
-            extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-            max_file_lines = 1000 -- Do not enable for files with more than 1000 lines, int
+            -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+            -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+            -- the name of the parser)
+            -- list of language that will be disabled
+            -- disable = { "c", "rust" },
+
+            -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+            -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+            -- Using this option may slow down your editor, and you may see some duplicate highlights.
+            -- Instead of true it can also be a list of languages
+            additional_vim_regex_highlighting = false,
         },
-        context_commentstring = {enable = true, enable_autocmd = false}
     }
+end
+
+function config.vim_commentary()
+    vim.api.nvim_command('autocmd FileType conf commentstring=# %s')
 end
 
 function config.autotag()
@@ -196,6 +180,41 @@ function config.dapui()
         },
         windows = {indent = 1}
     })
+end
+
+function config.treesitter_context()
+    require'treesitter-context'.setup{
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        throttle = true, -- Throttles plugin updates (may improve performance)
+        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+        patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+        -- For all filetypes
+        -- Note that setting an entry here replaces all other patterns for this entry.
+        -- By setting the 'default' entry below, you can control which nodes you want to
+        -- appear in the context window.
+        default = {
+            'class',
+            'function',
+            'method',
+            -- 'for', -- These won't appear in the context
+            -- 'while',
+            -- 'if',
+            -- 'switch',
+            -- 'case',
+        },
+        -- Example for a specific filetype.
+        -- If a pattern is missing, *open a PR* so everyone can benefit.
+        --   rust = {
+        --       'impl_item',
+        --   },
+    },
+    exact_patterns = {
+        -- Example for a specific filetype with Lua patterns
+        -- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
+        -- exactly match "impl_item" only)
+        -- rust = true, 
+    }
+}
 end
 
 function config.dap()
@@ -287,6 +306,35 @@ function config.dapinstal()
         installation_path = dap_dir,
         verbosely_call_debuggers = false
     })
+end
+
+function config.nvim_colorizer()
+	require("colorizer").setup()
+end
+
+function config.nvim_comment()
+    require("nvim_comment").setup({
+        -- Linters prefer comment and line to have a space in between markers
+        marker_padding = true,
+        -- should comment out empty or whitespace only lines
+        comment_empty = false,
+        -- trim empty comment whitespace
+        comment_empty_trim_whitespace = true,
+        -- Should key mappings be created
+        create_mappings = true,
+        -- Normal mode mapping left hand side
+        -- line_mapping = "<leader>cs",
+        -- Visual/Operator mapping left hand side
+        operator_mapping = "<leader>cs",
+        -- text object mapping, comment chunk,,
+        -- comment_chunk_text_object = "ic",
+        -- Hook function to call before commenting takes place
+        hook = nil
+    })
+end
+
+function config.nvim_tree()
+    require'nvim-tree'.setup()
 end
 
 return config

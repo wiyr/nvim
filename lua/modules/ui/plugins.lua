@@ -22,10 +22,16 @@ ui['lukas-reineke/indent-blankline.nvim'] = {
     config = conf.indent_blankline
 }
 -- 底下状态栏显示
-ui['glepnir/galaxyline.nvim'] = {
-  branch = 'main',
-  config = conf.galaxyline,
-  requires = 'kyazdani42/nvim-web-devicons'
+-- ui['glepnir/galaxyline.nvim'] = {
+  -- branch = 'main',
+  -- config = conf.galaxyline,
+  -- requires = 'kyazdani42/nvim-web-devicons'
+-- }
+-- 底下状态栏显示
+ui['nvim-lualine/lualine.nvim'] = {
+    opt = true,
+    config = conf.lualine,
+	after = "lualine-lsp-progress",
 }
 -- vim支持专注模式
 ui['folke/zen-mode.nvim'] = {
@@ -33,5 +39,24 @@ ui['folke/zen-mode.nvim'] = {
     cmd = 'ZenMode',
     config = conf.zen_mode
 }
+-- color theme
+ui['ray-x/aurora'] = {
+    opt = true
+}
+-- bufferline
+ui["akinsho/bufferline.nvim"] = {
+	opt = true,
+	tag = "*",
+	event = "BufRead",
+	config = conf.nvim_bufferline,
+  requires = 'kyazdani42/nvim-web-devicons',
+}
+--  显示鼠标当前是那个类/functional内
+ui["SmiteshP/nvim-gps"] = {
+	opt = true,
+	after = "nvim-treesitter",
+	config = conf.nvim_gps,
+}
 
+ui["arkav/lualine-lsp-progress"] = { opt = true, after = "nvim-gps" }
 return ui

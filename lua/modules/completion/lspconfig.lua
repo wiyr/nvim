@@ -8,12 +8,8 @@ if not packer_plugins['nvim-lsp-installer'].loaded then
     vim.cmd [[packadd nvim-lsp-installer]]
 end
 
-if not packer_plugins['lsp_signature.nvim'].loaded then
-    vim.cmd [[packadd lsp_signature.nvim]]
-end
-
+vim.cmd [[packadd lsp_signature.nvim]]
 -- vim.cmd([[packadd nvim-lsp-installer]])
---vim.cmd([[packadd lsp_signature.nvim]])
 vim.cmd([[packadd cmp-nvim-lsp]])
 -- vim.cmd([[packadd aerial.nvim]])
 -- vim.cmd([[packadd vim-illuminate]])

@@ -162,6 +162,7 @@ local load_core = function()
     -- vim.cmd [[colorscheme darkplus]]
     -- vim.cmd [[colorscheme desert]]
     vim.cmd [[colorscheme one-nvim]]
+    -- vim.cmd [[colorscheme aurora]]
 end
 
 load_core()

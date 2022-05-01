@@ -18,20 +18,22 @@ local def_map = {
     ["n|<C-l>"] = map_cmd('<C-w>l'):with_noremap(),
     ["n|<C-j>"] = map_cmd('<C-w>j'):with_noremap(),
     ["n|<C-k>"] = map_cmd('<C-w>k'):with_noremap(),
-    ["n|<A-[>"] = map_cr('vertical resize -5'):with_silent(),
-    ["n|<A-]>"] = map_cr('vertical resize +5'):with_silent(),
-    ["n|<A-;>"] = map_cr('resize -2'):with_silent(),
-    ["n|<A-'>"] = map_cr('resize +2'):with_silent(),
-    ["n|<C-q>"] = map_cmd(':wq<CR>'),
-    ["n|<A-q>"] = map_cmd(':bw<CR>'),
-    ["n|<A-S-q>"] = map_cmd(':bw!<CR>'),
-    ["n|<leader>o"] = map_cr("setlocal spell! spelllang=en_us"),
+    ["n|<leader>t"] = map_cr(':tabnew'),
+    ["n|<leader>w"] = map_cr(':tabclose'),
+    ["n|<leader><tab>"] = map_cr(':tabnext'),
+    ["n|<leader><s-tab>"] = map_cr(':tabprevious'),
+    -- ["n|<leader>o"] = map_cr("setlocal spell! spelllang=en_us"),
+    ["n|j"] = map_cmd("gj"):with_noremap(),
+    ["n|k"] = map_cmd("gk"):with_noremap(),
+    ["n|;"] = map_cmd(":"):with_noremap(),
+    ["n|0"] = map_cmd("^"):with_noremap(),
     -- Insert
     ["i|<C-u>"] = map_cmd('<C-G>u<C-U>'):with_noremap(),
     ["i|<C-b>"] = map_cmd('<Left>'):with_noremap(),
     ["i|<C-a>"] = map_cmd('<ESC>^i'):with_noremap(),
     ["i|<C-s>"] = map_cmd('<Esc>:w<CR>'),
     ["i|<C-q>"] = map_cmd('<Esc>:wq<CR>'),
+    ["i|jk"] = map_cmd('<Esc>'),
     -- command line
     ["c|<C-b>"] = map_cmd('<Left>'):with_noremap(),
     ["c|<C-f>"] = map_cmd('<Right>'):with_noremap(),
@@ -40,13 +42,15 @@ local def_map = {
     ["c|<C-d>"] = map_cmd('<Del>'):with_noremap(),
     ["c|<C-h>"] = map_cmd('<BS>'):with_noremap(),
     ["c|<C-t>"] = map_cmd([[<C-R>=expand("%:p:h") . "/" <CR>]]):with_noremap(),
-    ["c|w!!"] = map_cmd(
-        "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!"),
+    ["c|w!!"] = map_cmd("execute 'silent! write !sudo tee % >/dev/null' <bar> edit!"),
+    ["c|cd."] = map_cmd("lcd %:p:h"),
     -- Visual
     ["v|J"] = map_cmd(":m '>+1<cr>gv=gv"),
     ["v|K"] = map_cmd(":m '<-2<cr>gv=gv"),
     ["v|<"] = map_cmd("<gv"),
-    ["v|>"] = map_cmd(">gv")
+    ["v|>"] = map_cmd(">gv"),
+    ["v|<leader>y"] = map_cr(":w! ~/.vbuf"),
+    ["v|<leader>p"] = map_cr(":r ~/.vbuf"),
 }
 
 bind.nvim_load_mapping(def_map)

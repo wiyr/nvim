@@ -49,4 +49,5 @@ tools['nvim-telescope/telescope-frecency.nvim'] = {
     -- run = ":UpdateRemotePlugins",
     -- config = conf.wilder
 -- }
+tools["dstein64/vim-startuptime"] = { opt = true, cmd = "StartupTime" }
 return tools
