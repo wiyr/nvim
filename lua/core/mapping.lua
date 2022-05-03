@@ -22,6 +22,7 @@ local def_map = {
     ["n|<leader>w"] = map_cr(':tabclose'),
     ["n|<leader><tab>"] = map_cr(':tabnext'),
     ["n|<leader><s-tab>"] = map_cr(':tabprevious'),
+    ["n|<leader>v"] = map_cr('e ~/.config/nvim/init.vim'),
     -- ["n|<leader>o"] = map_cr("setlocal spell! spelllang=en_us"),
     ["n|j"] = map_cmd("gj"):with_noremap(),
     ["n|k"] = map_cmd("gk"):with_noremap(),

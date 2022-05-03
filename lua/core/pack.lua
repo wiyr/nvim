@@ -3,8 +3,7 @@ local vim_path = require('core.global').vim_path
 -- ~/.local/share/nvim/site/
 local data_dir = require('core.global').data_dir
 local modules_dir = vim_path .. '/lua/modules'
-local packer_compiled = data_dir .. 'packer_compiled.vim'
-local compile_to_lua = data_dir .. 'lua/_compiled.lua'
+local packer_compiled = data_dir .. 'lua/_compiled.lua'
 local bak_compiled = data_dir .. 'lua/bak_compiled.lua'
 local packer = nil
 
@@ -80,33 +79,10 @@ local plugins = setmetatable({}, { -- get attribute from packer
 function plugins.ensure_plugins() Packer:init_ensure_plugins() end
 
 function plugins.compile_to_lua_file()
-    plugins.compile()
-    local lines = {}
-    local lnum = 1
-    lines[#lines + 1] = 'vim.cmd [[packadd packer.nvim]]\n'
-
-    for line in io.lines(packer_compiled) do
-        lnum = lnum + 1
-        if lnum > 15 then
-            lines[#lines + 1] = line .. '\n'
-            if line == 'END' then break end
-        end
-    end
-    table.remove(lines, #lines)
-
     if vim.fn.isdirectory(data_dir .. 'lua') ~= 1 then
         os.execute('mkdir -p ' .. data_dir .. 'lua')
     end
-
-    if vim.fn.filereadable(compile_to_lua) == 1 then
-        os.rename(compile_to_lua, bak_compiled)
-    end
-
-    local file = io.open(compile_to_lua, "w")
-    for _, line in ipairs(lines) do file:write(line) end
-    file:close()
-
-    -- os.remove(packer_compiled)
+    plugins.compile()
 end
 
 function plugins.auto_compile()
@@ -118,7 +94,7 @@ function plugins.auto_compile()
 end
 
 function plugins.load_compile()
-    if vim.fn.filereadable(compile_to_lua) == 1 then
+    if vim.fn.filereadable(packer_compiled) == 1 then
         require('_compiled')
     else
         assert(
