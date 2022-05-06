@@ -23,6 +23,7 @@ local def_map = {
     ["n|<leader><tab>"] = map_cr(':tabnext'),
     ["n|<leader><s-tab>"] = map_cr(':tabprevious'),
     ["n|<leader>v"] = map_cr('e ~/.config/nvim/init.vim'),
+    ["n|<leader>p"] = map_cr(":r ~/.vbuf"),
     -- ["n|<leader>o"] = map_cr("setlocal spell! spelllang=en_us"),
     ["n|j"] = map_cmd("gj"):with_noremap(),
     ["n|k"] = map_cmd("gk"):with_noremap(),
@@ -51,7 +52,6 @@ local def_map = {
     ["v|<"] = map_cmd("<gv"),
     ["v|>"] = map_cmd(">gv"),
     ["v|<leader>y"] = map_cr(":w! ~/.vbuf"),
-    ["v|<leader>p"] = map_cr(":r ~/.vbuf"),
 }
 
 bind.nvim_load_mapping(def_map)
